@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time News Website</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>📰 Real-Time News Portal</h1>
+    <p>Stay updated with the latest news & trends</p>
+  </header>
+
+  <main>
+    <section id="news-section">
+      <h2>Latest News</h2>
+      <div id="news-feed">
+        <!-- News items will be added here -->
+      </div>
+    </section>
+
+    <section id="comments-section">
+      <h2>💬 Comments</h2>
+      <form id="comment-form">
+        <input type="text" id="username" placeholder="Your name" required />
+        <textarea id="comment" placeholder="Your comment..." required></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+      <div id="comments">
+        <!-- User comments will appear here -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Real-Time News. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Sample dynamic news (simulate updates)
+    const sampleNews = [
+      "🚀 SpaceX successfully launches new satellite.",
+      "📈 Stock market hits record high.",
+      "⚽ Argentina wins Copa America!",
+      "🌍 Global temperatures hit new highs in June.",
+      "🎬 New Marvel movie breaks box office records!"
+    ];
+    
+    let newsIndex = 0;
+    const newsFeed = document.getElementById("news-feed");
+
+    function addNewsItem() {
+      if (newsIndex >= sampleNews.length) return;
+      const newsItem = document.createElement("div");
+      newsItem.className = "news-item";
+      newsItem.innerHTML = `
+        <p>${sampleNews[newsIndex]}</p>
+        <button onclick="likeNews(this)">👍 Like</button>
+        <span class="likes">0</span> Likes
+      `;
+      newsFeed.prepend(newsItem);
+      newsIndex++;
+    }
+
+    setInterval(addNewsItem, 3000); // Add new news every 3 sec
+
+    function likeNews(button) {
+      const span = button.nextElementSibling;
+      span.textContent = parseInt(span.textContent) + 1;
+    }
+
+    // Handle comments
+    const commentForm = document.getElementById("comment-form");
+    const commentsContainer = document.getElementById("comments");
+
+    commentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const user = document.getElementById("username").value.trim();
+      const commentText = document.getElementById("comment").value.trim();
+
+      if (user && commentText) {
+        const comment = document.createElement("div");
+        comment.className = "comment";
+        comment.innerHTML = `<strong>${user}:</strong> ${commentText}`;
+        commentsContainer.prepend(comment);
+        commentForm.reset();
+      }
+    });
+  </script>
+</body>
+</html>
